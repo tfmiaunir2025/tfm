@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subir Archivo</title>
+  </head>
+  <body>
+    <h1>hola holita dentro de static</h1>
+    PRUEBA DE SUBIR UN FICHERO
+    <form
+      id="uploadForm"
+      action="http://127.0.0.1:9000/uploaddefuera"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="file" />
+      <br /><br />
+      <button type="submit">Subir Archivo desde INDEX.HTML</button>
+    </form>
+
+    <div id="result"></div>
+
+    <h1>Botón para PRUEBAS</h1>
+    <button onclick="invocarMetodo()">Invocar Método de API</button>
+    <div id="resultado"></div>
+
+    <h1>hola holita dentro de static</h1>
+    PRUEBA DE SUBIR UN FICHERO E INFERIF
+    <form
+      id="uploadForm"
+      action="http://127.0.0.1:9000/infiere"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="file" />
+      <br /><br />
+      <button type="submit">Subir Archivo desde INDEX.HTML</button>
+    </form>
+
+
+    <script>
+      const form = document.getElementById("uploadForm");
+      const resultDiv = document.getElementById("result");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const response = await fetch("/uploaddefuera", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        resultDiv.innerText = `El tamaño del archivo es: ${data.size} bytes`;
+      });
+
+
+      async function invocarMetodo() {
+            try {
+                const response = await fetch('http://127.0.0.1:9000/test');
+                const data = await response.json();
+                document.getElementById('resultado').innerText = data.mensaje+" "+data.clases;
+            } catch (error) {
+                console.error('Error al invocar el método de API:', error);
+            }
+        }
+
+    </script>
+  </body>
+</html>

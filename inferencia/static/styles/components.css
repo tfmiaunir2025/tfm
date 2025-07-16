@@ -1,0 +1,108 @@
+/* Components */
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 1.2rem 2.4rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-medium);
+  font-size: 1.6rem;
+}
+
+.btn-primary {
+  background-color: var(--color-primary-500);
+  color: white;
+  box-shadow: 0 4px 6px rgba(14, 165, 233, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-600);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(14, 165, 233, 0.3);
+}
+
+.btn-outline {
+  border: 2px solid var(--color-primary-500);
+  color: var(--color-primary-500);
+  background-color: transparent;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary-500);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(14, 165, 233, 0.2);
+}
+
+/* Cards */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Icons */
+.icon-location::before {
+  content: '📍';
+}
+
+.icon-mail::before {
+  content: '✉️';
+}
+
+.icon-phone::before {
+  content: '📱';
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 100px;
+    aspect-ratio: 1;
+    box-shadow: 0 0 0 3px var(--color-primary-500) inset;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    animation: l8-0 1.5s linear infinite;
+    left: 50%;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 2px);
+  box-shadow: inherit;
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l8-1 1.5s linear infinite;
+}
+@keyframes l8-1 {
+  0% {
+    transform-origin: -54px 50%;
+    width: 40px;
+    transform: translateY(-50%) rotate(0);
+  }
+  100% {
+    transform-origin: -24px 50%;
+    width: 100px;
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+@keyframes l8-0 {
+  0% {
+    width: 100px;
+    transform: translate(0);
+  }
+  100% {
+    width: 40px;
+    transform: translate(37px);
+  }
+}

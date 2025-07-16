@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> TFM | Master in Inteligencia Artificial</title>
+  <link rel="stylesheet" href="./static/styles/reset.css">
+  <link rel="stylesheet" href="./static/styles/variables.css">
+  <link rel="stylesheet" href="./static/styles/typography.css">
+  <link rel="stylesheet" href="./static/styles/layout.css">
+  <link rel="stylesheet" href="./static/styles/components.css">
+  <link rel="stylesheet" href="./static/styles/animations.css">
+  <link rel="stylesheet" href="./static/styles/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="loader" ></div>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="/">Master en Inteligencia  Artificial (UNIR)</a>
+        </div>
+        <nav class="main-nav">
+          <input type="checkbox" id="menu-toggle" class="menu-toggle">
+          <label for="menu-toggle" class="menu-icon">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </label>
+          <!--
+          <ul class="nav-list">
+            <li><a href="#about">Tania</a></li>
+            <li><a href="#work">Juanjo</a></li>
+            <li><a href="#contact">Martín</a></li>
+          </ul>
+          -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="appear">
+            <span class="line">Retén el talento</span>
+            <span class="line">Conoce tus fortalezas</span>
+          </h1>
+          <p class="hero-intro appear-delay-1">
+            Necesitas saber qué valora tu plantilla.
+          </p>
+          <div class="hero-cta appear-delay-2">
+            <form id="uploadForm" action="http://127.0.0.1:9000/infiere" method="post" enctype="multipart/form-data">
+              <input class="btn btn-primary" type="file" name="file" />
+              <br /><br />
+              <button class="btn btn-primary" type="submit">Realiza inferencias</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+     <script>
+      const form = document.getElementById("uploadForm");
+      const resultDiv = document.getElementById("result");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        document.getElementById('loader').classList.add('loader');
+
+        const formData = new FormData(form);
+        const response = await fetch("/infiere", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        location.href="/resultados"
+        //resultDiv.innerText = `El tamaño del archivo es: ${data.size} bytes`;
+
+      });
+
+
+      async function invocarMetodo() {
+            try {
+                const response = await fetch('http://127.0.0.1:9000/test');
+                const data = await response.json();
+                document.getElementById('resultado').innerText = data.mensaje+" "+data.clases;
+            } catch (error) {
+                console.error('Error al invocar el método de API:', error);
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subir Archivo</title>
+  </head>
+  <body>
+
+
+    <h1>Botón para PRUEBAS</h1>
+    <button onclick="invocarMetodo()">Invocar Método de API</button>
+    <div id="resultado"></div>
+
+    <h1>PRUEBA DE SUBIR UN FICHERO E INFERIF</h1>
+    
+    <form
+      id="uploadForm"
+      action="http://127.0.0.1:9000/infiere"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="file" />
+      <br /><br />
+      <button type="submit">SUBIR DATOS</button>
+    </form>
+
+
+    <script>
+      const form = document.getElementById("uploadForm");
+      const resultDiv = document.getElementById("result");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        document.body.innerHTML = "GENERANDO INFERENCIAS"
+        const formData = new FormData(form);
+        const response = await fetch("/infiere", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        location.href="/resultados"
+        //resultDiv.innerText = `El tamaño del archivo es: ${data.size} bytes`;
+
+      });
+
+
+      async function invocarMetodo() {
+            try {
+                const response = await fetch('http://127.0.0.1:9000/test');
+                const data = await response.json();
+                document.getElementById('resultado').innerText = data.mensaje+" "+data.clases;
+            } catch (error) {
+                console.error('Error al invocar el método de API:', error);
+            }
+        }
+
+    </script>
+  </body>
+</html>
